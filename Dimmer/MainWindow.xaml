@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Closing="Window_Closing" 
         ResizeMode="CanMinimize"
-        Title="Template" Height="700" Width="1000" Background="#FF3E6FB3" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="Dimmer" Height="700" Width="1000" Background="#FF3E6FB3" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
         <TabControl x:Name="Log" HorizontalAlignment="Left" Height="172" Margin="5,490,0,0" VerticalAlignment="Top" Width="790" Background="#FFE6F0FF">
             <TabControl.Resources>
