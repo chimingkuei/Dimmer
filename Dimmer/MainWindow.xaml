@@ -60,9 +60,9 @@
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" Margin="670,100,2,100">
                         <Label x:Name="Ch1" Content="Ch1:" Margin="68,26,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Height="28" Width="40"/>
-                        <xctk:IntegerUpDown x:Name="LED1" Minimum="0" Maximum="255" Increment="1" Margin="0,26,0,0" TextAlignment="Center" Height="28" Width="124" FontSize="14"/>
+                        <xctk:IntegerUpDown x:Name="LED1" Minimum="0" Maximum="511" Increment="1" Margin="0,26,0,0" TextAlignment="Center" Height="28" Width="124" FontSize="14"/>
                         <Label x:Name="Ch2" Content="Ch2:" Margin="68,26,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Height="28" Width="40"/>
-                        <xctk:IntegerUpDown x:Name="LED2" Minimum="0" Maximum="255" Increment="1" Margin="0,26,0,0" TextAlignment="Center" Height="28" Width="124" FontSize="14"/>
+                        <xctk:IntegerUpDown x:Name="LED2" Minimum="0" Maximum="511" Increment="1" Margin="0,26,0,0" TextAlignment="Center" Height="28" Width="124" FontSize="14"/>
                         <RadioButton x:Name="One_Channel" Content="Single channel Control" Margin="65,26,0,0" VerticalContentAlignment="Center" Height="28" Width="170" FontSize="14"/>
                         <RadioButton x:Name="Two_Channel" Content="Multi-Channel Control"  Margin="65,26,0,0" VerticalContentAlignment="Center" Height="28" Width="170" FontSize="14"/>
                     </WrapPanel>

@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C45D49E8-8C14-4C9B-8127-336C832A2279}</ProjectGuid>
+    <ProjectGuid>{B2A2FDCA-8CDF-46F3-BA7D-5FC08AC0A3FE}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Dimmer</RootNamespace>
     <AssemblyName>Dimmer</AssemblyName>
@@ -134,6 +134,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="3AMGeneralSeries.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>

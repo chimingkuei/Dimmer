@@ -13,6 +13,9 @@ namespace Dimmer
 
         public SerialPort serialPort = new SerialPort();
 
+        /// <summary>
+        /// PD12V30W("COM5", 19200, 8, 0, 1);
+        /// </summary>
         public PD12V30W(string _PortName, int _BaudRate, int _DataBits, int _Parity, int _StopBits)
         {
             serialPort.PortName = _PortName;

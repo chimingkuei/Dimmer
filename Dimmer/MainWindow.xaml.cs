@@ -81,7 +81,7 @@ namespace Dimmer
         }
         BaseLogRecord Logger = new BaseLogRecord();
         BaseConfig<Parameter> Config = new BaseConfig<Parameter>();
-        PD12V30W Do;
+        GLCPD24V24W Do;
         #endregion
 
         #region Main Screen
@@ -91,7 +91,7 @@ namespace Dimmer
             {
                 case nameof(Connect):
                     {
-                        Do = new PD12V30W("COM9", 19200, 8, 0, 1);
+                        Do = new GLCPD24V24W(PortName.Text, Convert.ToInt32(BaundRate.Text), Convert.ToInt32(ByteSize.Text), Convert.ToInt32(Parity.Text), Convert.ToInt32(StopBit.Text));
                         Do.Connect();
                         break;
                     }
@@ -120,9 +120,6 @@ namespace Dimmer
             }
         }
         #endregion
-
-
-
 
 
     }
