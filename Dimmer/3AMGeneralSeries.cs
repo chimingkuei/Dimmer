@@ -50,7 +50,7 @@ namespace Dimmer
         {
         }
 
-        public virtual string OneChannelLRC(int led_value, int ch)
+        private string OneChannelLRC(int led_value, int ch)
         {
             string Temp = (1 + 6 + ch + led_value).ToString("X");
             string Data_sum = Temp.Length >= 2 ? Temp.Substring(Temp.Length - 2, 2) : Temp;
@@ -58,7 +58,7 @@ namespace Dimmer
             return LRC;
         }
 
-        public virtual string OneChannelProtocalFormat(int led_value, int ch)
+        private string OneChannelProtocalFormat(int led_value, int ch)
         {
             string Header = ":";
             string command = "0106000" + ch.ToString() + "00" + led_value.ToString("X2");
@@ -75,7 +75,7 @@ namespace Dimmer
             serialPort.Write(buf, 0, buf.Length);
         }
 
-        public virtual string TwoChannelLRC(int led1_value, int led2_value)
+        private string TwoChannelLRC(int led1_value, int led2_value)
         {
             string Temp = (1 + 16 + 1 + 2 + 4 + led1_value + led2_value).ToString("X");
             string Data_sum = Temp.Length >= 2 ? Temp.Substring(Temp.Length - 2, 2) : Temp;
@@ -83,7 +83,7 @@ namespace Dimmer
             return LRC;
         }
 
-        public virtual string TwoChannelProtocalFormat(int led1_value, int led2_value)
+        private string TwoChannelProtocalFormat(int led1_value, int led2_value)
         {
             string Header = ":";
             string command = "01100001000204" + led1_value.ToString("X2") + led2_value.ToString("X2");
@@ -107,7 +107,7 @@ namespace Dimmer
         {
         }
 
-        public virtual string OneChannelLRC(int led_value, int ch)
+        private string OneChannelLRC(int led_value, int ch)
         {
             string firstTwo_Register_Value = led_value.ToString("X4").Substring(0, 2);
             string lastTwo_Register_Value = led_value.ToString("X4").Substring(2, 2);
@@ -117,7 +117,7 @@ namespace Dimmer
             return LRC;
         }
 
-        public virtual string OneChannelProtocalFormat(int led_value, int ch)
+        private string OneChannelProtocalFormat(int led_value, int ch)
         {
             string Header = ":";
             string command = "0106" + ch.ToString("X4") + led_value.ToString("X4");
@@ -134,7 +134,7 @@ namespace Dimmer
             serialPort.Write(buf, 0, buf.Length);
         }
 
-        public virtual string TwoChannelLRC(int led1_value, int led2_value)
+        private string TwoChannelLRC(int led1_value, int led2_value)
         {
             string firstTwo_Register_Value1 = led1_value.ToString("X4").Substring(0, 2);
             string lastTwo_Register_Value1 = led1_value.ToString("X4").Substring(2, 2);
@@ -146,7 +146,7 @@ namespace Dimmer
             return LRC;
         }
 
-        public virtual string TwoChannelProtocalFormat(int led1_value, int led2_value)
+        private string TwoChannelProtocalFormat(int led1_value, int led2_value)
         {
             string Header = ":";
             string command = "01100001000408" + led1_value.ToString("X4") + led2_value.ToString("X4");

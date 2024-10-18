@@ -40,37 +40,40 @@
         <TabControl HorizontalAlignment="Left" Margin="5,3,0,0" VerticalAlignment="Top" Height="478" Width="978" Background="#FFE6F0FF">
             <TabItem Header="主畫面" Style="{StaticResource BaseTabcontrol}">
                 <Grid>
-                    <WrapPanel Orientation="Horizontal" Margin="0,65,672,65">
-                        <Label x:Name="PortName_Label" Content="Port Name:" Margin="45,29,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="90" FontSize="14"/>
-                        <TextBox x:Name="PortName" HorizontalAlignment="Left" Margin="0,29,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="120" FontSize="14"/>
-                        <Label x:Name="BaundRate_Label" Content="Baund Rate:" Margin="45,29,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="90" FontSize="14"/>
-                        <TextBox x:Name="BaundRate" HorizontalAlignment="Left" Margin="0,29,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="120" FontSize="14"/>
-                        <Label x:Name="ByteSize_Label" Content="Byte Size:" Margin="45,29,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="90" FontSize="14"/>
-                        <TextBox x:Name="ByteSize" HorizontalAlignment="Left" Margin="0,29,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="120" FontSize="14"/>
-                        <Label x:Name="Parity_Label" Content="Parity:" Margin="45,29,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Width="90" FontSize="14"/>
-                        <TextBox x:Name="Parity" HorizontalAlignment="Left" Margin="0,29,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="120" FontSize="14"/>
-                        <Label x:Name="StopBit_Label" Content="Stop Bit:" Margin="45,29,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Width="90" FontSize="14"/>
-                        <TextBox x:Name="StopBit" HorizontalAlignment="Left" Margin="0,29,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="120" FontSize="14"/>
+                    <WrapPanel Orientation="Horizontal" Margin="32,181,675,9">
+                        <Label x:Name="PortName_Label" Content="Port Name:" Margin="25,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="90" FontSize="14"/>
+                        <TextBox x:Name="PortName" HorizontalAlignment="Left" Margin="0,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="120" FontSize="14"/>
+                        <Label x:Name="BaundRate_Label" Content="Baund Rate:" Margin="25,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="90" FontSize="14"/>
+                        <TextBox x:Name="BaundRate" HorizontalAlignment="Left" Margin="0,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="120" FontSize="14"/>
+                        <Label x:Name="ByteSize_Label" Content="Byte Size:" Margin="25,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="90" FontSize="14"/>
+                        <TextBox x:Name="ByteSize" HorizontalAlignment="Left" Margin="0,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="120" FontSize="14"/>
+                        <Label x:Name="Parity_Label" Content="Parity:" Margin="25,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Width="90" FontSize="14"/>
+                        <TextBox x:Name="Parity" HorizontalAlignment="Left" Margin="0,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="120" FontSize="14"/>
+                        <Label x:Name="StopBit_Label" Content="Stop Bit:" Margin="25,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Width="90" FontSize="14"/>
+                        <TextBox x:Name="StopBit" HorizontalAlignment="Left" Margin="0,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="120" FontSize="14"/>
                     </WrapPanel>
-                    <WrapPanel Orientation="Horizontal" Margin="305,120,305,120">
-                        <Button x:Name="Connect" Style="{StaticResource BaseButton}" Content="Connect" Margin="37,42,0,0" Background="#FF3E6FB3" Width="125" Height="40" FontSize="20" Click="Main_Btn_Click"/>
-                        <Button x:Name="DisConnect" Style="{StaticResource BaseButton}" Content="DisConnect" Margin="37,42,0,0" Background="#FF3E6FB3" Width="125" Height="40" FontSize="20" Click="Main_Btn_Click"/>
-                        <Button x:Name="Light_Up" Style="{StaticResource BaseButton}" Content="Light Up" Margin="37,42,0,0" Background="#FF3E6FB3" Width="125" Height="40" FontSize="20" Click="Main_Btn_Click"/>
-                        <Button x:Name="Save_Config" Style="{StaticResource BaseButton}" Content="Config" Margin="37,42,0,0" Background="#FF3E6FB3" Width="125" Height="40" FontSize="20" Click="Main_Btn_Click"/>
+                    <WrapPanel Orientation="Horizontal" Margin="305,32,305,30">
+                        <Button x:Name="Connect" Style="{StaticResource CircleButton}" Content="Connect" Margin="37,42,0,0" Width="125" Height="125" FontSize="20" Click="Main_Btn_Click"/>
+                        <Button x:Name="DisConnect" Style="{StaticResource CircleButton}" Content="DisConnect" Margin="37,42,0,0" Width="125" Height="125" FontSize="20" Click="Main_Btn_Click"/>
+                        <Button x:Name="Light_Up" Style="{StaticResource CircleButton}" Content="Light Up" Margin="37,42,0,0" Width="125" Height="125" FontSize="20" Click="Main_Btn_Click"/>
+                        <Button x:Name="Save_Config" Style="{StaticResource CircleButton}" Content="Config" Margin="37,42,0,0" Width="125" Height="125" FontSize="20" Click="Main_Btn_Click"/>
                     </WrapPanel>
-                    <WrapPanel Orientation="Horizontal" Margin="670,100,2,100">
+                    <WrapPanel Orientation="Horizontal" Margin="676,101,31,98">
                         <Label x:Name="Ch1" Content="Ch1:" Margin="68,26,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Height="28" Width="40"/>
                         <xctk:IntegerUpDown x:Name="LED1" Minimum="0" Maximum="511" Increment="1" Margin="0,26,0,0" TextAlignment="Center" Height="28" Width="124" FontSize="14"/>
                         <Label x:Name="Ch2" Content="Ch2:" Margin="68,26,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Height="28" Width="40"/>
                         <xctk:IntegerUpDown x:Name="LED2" Minimum="0" Maximum="511" Increment="1" Margin="0,26,0,0" TextAlignment="Center" Height="28" Width="124" FontSize="14"/>
-                        <RadioButton x:Name="One_Channel" Content="Single channel Control" Margin="65,26,0,0" VerticalContentAlignment="Center" Height="28" Width="170" FontSize="14"/>
-                        <RadioButton x:Name="Two_Channel" Content="Multi-Channel Control"  Margin="65,26,0,0" VerticalContentAlignment="Center" Height="28" Width="170" FontSize="14"/>
+                        <WrapPanel Orientation="Horizontal" Margin="47.5,26,0,0">
+                            <RadioButton x:Name="One_Channel" Style="{StaticResource BaseRadioButton}" Content="Single channel Control" Margin="0,0,0,0" VerticalContentAlignment="Center" Height="28" Width="170" FontSize="14"/>
+                            <RadioButton x:Name="Two_Channel" Style="{StaticResource BaseRadioButton}" Content="Multi-Channel Control"  Margin="0,13,0,0" VerticalContentAlignment="Center" Height="28" Width="170" FontSize="14"/>
+                        </WrapPanel>
                     </WrapPanel>
-                </Grid>
-            </TabItem>
-            <TabItem Header="參數畫面" Style="{StaticResource BaseTabcontrol}">
-                <Grid>
-
+                    <GroupBox Style="{StaticResource BaseGroupBox}" Margin="29,26,673,270" Header="Dimmer Model" FontSize="22" Foreground="Black" Background="Teal">
+                        <WrapPanel Orientation="Horizontal" Margin="0,0,0,0">
+                            <RadioButton x:Name="GLC_PD12V30W" Style="{StaticResource BaseRadioButton}" Content="GLC-PD12V30W" VerticalContentAlignment="Center" Height="28" Width="135" Margin="56.5,11,0,0" FontSize="14"/>
+                            <RadioButton x:Name="GLC_PD24V24W" Style="{StaticResource BaseRadioButton}" Content="GLC-PD24V24W" VerticalContentAlignment="Center" Height="28" Width="135" Margin="56.5,11,0,0" FontSize="14"/>
+                        </WrapPanel>
+                    </GroupBox>
                 </Grid>
             </TabItem>
         </TabControl>
