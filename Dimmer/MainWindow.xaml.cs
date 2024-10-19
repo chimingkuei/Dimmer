@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -19,6 +20,11 @@ using System.Windows.Shapes;
 
 namespace Dimmer
 {
+    enum ProductModel
+    {
+        GLCPD12V30W, GLCPD24V24W, GLCLFB2350
+    }
+
     public class Parameter
     {
         public int LED1_val { get; set; }
@@ -27,6 +33,7 @@ namespace Dimmer
         public bool Two_Channel_val { get; set; }
         public bool GLC_PD12V30W_val { get; set; }
         public bool GLC_PD24V24W_val { get; set; }
+        public bool GLC_LFB2350_val { get; set; }
         public string PortName_val { get; set; }
         public int BaundRate_val { get; set; }
         public int ByteSize_val { get; set; }
@@ -55,6 +62,23 @@ namespace Dimmer
             }
         }
 
+        private ProductModel SelectModel()
+        {
+            if ((bool)GLC_PD12V30W.IsChecked)
+            {
+                selectedModel = ProductModel.GLCPD12V30W;
+            }
+            else if ((bool)GLC_PD24V24W.IsChecked)
+            {
+                selectedModel = ProductModel.GLCPD24V24W;
+            }
+            else if ((bool)GLC_LFB2350.IsChecked)
+            {
+                selectedModel = ProductModel.GLCLFB2350;
+            }
+            return selectedModel;
+        }
+
         #region Config
         private void LoadConfig()
         {
@@ -65,6 +89,7 @@ namespace Dimmer
             Two_Channel.IsChecked = Parameter_info[0].Two_Channel_val;
             GLC_PD12V30W.IsChecked = Parameter_info[0].GLC_PD12V30W_val;
             GLC_PD24V24W.IsChecked = Parameter_info[0].GLC_PD24V24W_val;
+            GLC_LFB2350.IsChecked = Parameter_info[0].GLC_LFB2350_val;
             PortName.Text = Parameter_info[0].PortName_val.ToString();
             BaundRate.Text = Parameter_info[0].BaundRate_val.ToString();
             ByteSize.Text = Parameter_info[0].ByteSize_val.ToString();
@@ -82,6 +107,7 @@ namespace Dimmer
                                               Two_Channel_val= (bool)Two_Channel.IsChecked,
                                               GLC_PD12V30W_val = (bool)GLC_PD12V30W.IsChecked,
                                               GLC_PD24V24W_val = (bool)GLC_PD24V24W.IsChecked,
+                                              GLC_LFB2350_val = (bool)GLC_LFB2350.IsChecked,
                                               PortName_val=PortName.Text,
                                               BaundRate_val = Convert.ToInt32(BaundRate.Text),
                                               ByteSize_val = Convert.ToInt32(ByteSize.Text),
@@ -104,6 +130,8 @@ namespace Dimmer
         BaseConfig<Parameter> Config = new BaseConfig<Parameter>();
         GLCPD12V30W GLCPD12V30W;
         GLCPD24V24W GLCPD24V24W;
+        GLCLFB2350 GLCLFB2350;
+        ProductModel selectedModel;
         #endregion
 
         #region Main Screen
@@ -113,54 +141,79 @@ namespace Dimmer
             {
                 case nameof(Connect):
                     {
-                        if ((bool)GLC_PD12V30W.IsChecked)
+                        SelectModel();
+                        switch (selectedModel)
                         {
-                            GLCPD12V30W = new GLCPD12V30W(PortName.Text, Convert.ToInt32(BaundRate.Text), Convert.ToInt32(ByteSize.Text), Convert.ToInt32(Parity.Text), Convert.ToInt32(StopBit.Text));
-                            GLCPD12V30W.Connect();
-                        }
-                        else if ((bool)GLC_PD12V30W.IsChecked)
-                        {
-                            GLCPD24V24W = new GLCPD24V24W(PortName.Text, Convert.ToInt32(BaundRate.Text), Convert.ToInt32(ByteSize.Text), Convert.ToInt32(Parity.Text), Convert.ToInt32(StopBit.Text));
-                            GLCPD24V24W.Connect();
+                            case ProductModel.GLCPD12V30W:
+                                GLCPD12V30W = new GLCPD12V30W(PortName.Text, Convert.ToInt32(BaundRate.Text), Convert.ToInt32(ByteSize.Text), Convert.ToInt32(Parity.Text), Convert.ToInt32(StopBit.Text));
+                                GLCPD12V30W.Connect();
+                                break;
+
+                            case ProductModel.GLCPD24V24W:
+                                GLCPD24V24W = new GLCPD24V24W(PortName.Text, Convert.ToInt32(BaundRate.Text), Convert.ToInt32(ByteSize.Text), Convert.ToInt32(Parity.Text), Convert.ToInt32(StopBit.Text));
+                                GLCPD24V24W.Connect();
+                                break;
+
+                            case ProductModel.GLCLFB2350:
+                                GLCLFB2350 = new GLCLFB2350(PortName.Text, Convert.ToInt32(BaundRate.Text), Convert.ToInt32(ByteSize.Text), Convert.ToInt32(Parity.Text), Convert.ToInt32(StopBit.Text));
+                                GLCLFB2350.Connect();
+                                break;
                         }
                         break;
                     }
                 case nameof(DisConnect):
                     {
-                        if ((bool)GLC_PD12V30W.IsChecked)
+                        SelectModel();
+                        switch (selectedModel)
                         {
-                            GLCPD12V30W = new GLCPD12V30W(PortName.Text, Convert.ToInt32(BaundRate.Text), Convert.ToInt32(ByteSize.Text), Convert.ToInt32(Parity.Text), Convert.ToInt32(StopBit.Text));
-                            GLCPD12V30W.DisConnect();
-                        }
-                        else if ((bool)GLC_PD12V30W.IsChecked)
-                        {
-                            GLCPD24V24W = new GLCPD24V24W(PortName.Text, Convert.ToInt32(BaundRate.Text), Convert.ToInt32(ByteSize.Text), Convert.ToInt32(Parity.Text), Convert.ToInt32(StopBit.Text));
-                            GLCPD24V24W.DisConnect();
+                            case ProductModel.GLCPD12V30W:
+                                GLCPD12V30W.DisConnect();
+                                break;
+
+                            case ProductModel.GLCPD24V24W:
+                                break;
+
+                            case ProductModel.GLCLFB2350:
+                                GLCLFB2350.DisConnect();
+                                break;
                         }
                         break;
                     }
                 case nameof(Light_Up):
                     {
+                        SelectModel();
                         if ((bool)One_Channel.IsChecked)
                         {
-                            if ((bool)GLC_PD12V30W.IsChecked)
+                            switch (selectedModel)
                             {
-                                GLCPD12V30W.OneChannelSetBrightness(Convert.ToInt32(LED1.Value), 1);
-                            }
-                            else if ((bool)GLC_PD12V30W.IsChecked)
-                            {
-                                GLCPD24V24W.OneChannelSetBrightness(Convert.ToInt32(LED1.Value), 1); ;
+                                case ProductModel.GLCPD12V30W:
+                                    GLCPD12V30W.OneChannelSetBrightness(Convert.ToInt32(LED1.Value), 1);
+                                    break;
+
+                                case ProductModel.GLCPD24V24W:
+                                    GLCPD24V24W.OneChannelSetBrightness(Convert.ToInt32(LED1.Value), 1);
+                                    break;
+
+                                case ProductModel.GLCLFB2350:
+                                    GLCLFB2350.OneChannelSetBrightness(Convert.ToInt32(LED1.Value), 1);
+                                    break;
                             }
                         }
                         else if ((bool)Two_Channel.IsChecked)
                         {
-                            if ((bool)GLC_PD12V30W.IsChecked)
+                            switch (selectedModel)
                             {
-                                GLCPD12V30W.TwoChannelSetBrightness(Convert.ToInt32(LED1.Value), Convert.ToInt32(LED2.Value));
-                            }
-                            else if ((bool)GLC_PD12V30W.IsChecked)
-                            {
-                                GLCPD24V24W.TwoChannelSetBrightness(Convert.ToInt32(LED1.Value), Convert.ToInt32(LED2.Value));
+                                case ProductModel.GLCPD12V30W:
+                                    GLCPD12V30W.TwoChannelSetBrightness(Convert.ToInt32(LED1.Value), Convert.ToInt32(LED2.Value));
+                                    break;
+
+                                case ProductModel.GLCPD24V24W:
+                                    GLCPD24V24W.TwoChannelSetBrightness(Convert.ToInt32(LED1.Value), Convert.ToInt32(LED2.Value));
+                                    break;
+
+                                case ProductModel.GLCLFB2350:
+                                    GLCLFB2350.TwoChannelSetBrightness(Convert.ToInt32(LED1.Value), Convert.ToInt32(LED2.Value));
+                                    break;
                             }
                         }
                         break;

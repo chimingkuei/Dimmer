@@ -43,7 +43,17 @@
                     <WrapPanel Orientation="Horizontal" Margin="32,181,675,9">
                         <Label x:Name="PortName_Label" Content="Port Name:" Margin="25,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="90" FontSize="14"/>
                         <TextBox x:Name="PortName" HorizontalAlignment="Left" Margin="0,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="120" FontSize="14"/>
-                        <Label x:Name="BaundRate_Label" Content="Baund Rate:" Margin="25,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="90" FontSize="14"/>
+                        <Label x:Name="BaundRate_Label" Content="Baund Rate:" Margin="25,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="90" FontSize="14">
+                            <Label.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock Text="GLCPD12V30W BaundRate : 19200"/>
+                                        <TextBlock Text="GLCPD24V24W BaundRate : 115200"/>
+                                        <TextBlock Text="GLCLFB2350 BaundRate : 115200"/>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Label.ToolTip>
+                        </Label>
                         <TextBox x:Name="BaundRate" HorizontalAlignment="Left" Margin="0,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="120" FontSize="14"/>
                         <Label x:Name="ByteSize_Label" Content="Byte Size:" Margin="25,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="90" FontSize="14"/>
                         <TextBox x:Name="ByteSize" HorizontalAlignment="Left" Margin="0,19,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="28" Width="120" FontSize="14"/>
@@ -70,8 +80,9 @@
                     </WrapPanel>
                     <GroupBox Style="{StaticResource BaseGroupBox}" Margin="29,26,673,270" Header="Dimmer Model" FontSize="22" Foreground="Black" Background="Teal">
                         <WrapPanel Orientation="Horizontal" Margin="0,0,0,0">
-                            <RadioButton x:Name="GLC_PD12V30W" Style="{StaticResource BaseRadioButton}" Content="GLC-PD12V30W" VerticalContentAlignment="Center" Height="28" Width="135" Margin="56.5,11,0,0" FontSize="14"/>
-                            <RadioButton x:Name="GLC_PD24V24W" Style="{StaticResource BaseRadioButton}" Content="GLC-PD24V24W" VerticalContentAlignment="Center" Height="28" Width="135" Margin="56.5,11,0,0" FontSize="14"/>
+                            <RadioButton x:Name="GLC_PD12V30W" Style="{StaticResource BaseRadioButton}" Content="GLC-PD12V30W" VerticalContentAlignment="Center" Height="28" Width="135" Margin="56.5,2,0,0" FontSize="14"/>
+                            <RadioButton x:Name="GLC_PD24V24W" Style="{StaticResource BaseRadioButton}" Content="GLC-PD24V24W" VerticalContentAlignment="Center" Height="28" Width="135" Margin="56.5,2,0,0" FontSize="14"/>
+                            <RadioButton x:Name="GLC_LFB2350" Style="{StaticResource BaseRadioButton}" Content="GLC-LFB2-350" VerticalContentAlignment="Center" Height="28" Width="135" Margin="56.5,2,0,0" FontSize="14"/>
                         </WrapPanel>
                     </GroupBox>
                 </Grid>

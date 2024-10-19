@@ -9,11 +9,11 @@ using System.Windows;
 
 namespace Dimmer
 {
-    abstract class GeneralSeries
+    abstract class RS232Series
     {
         public SerialPort serialPort = new SerialPort();
 
-        protected GeneralSeries(string _PortName, int _BaudRate, int _DataBits, int _Parity, int _StopBits)
+        protected RS232Series(string _PortName, int _BaudRate, int _DataBits, int _Parity, int _StopBits)
         {
             serialPort.PortName = _PortName;
             serialPort.BaudRate = _BaudRate;
@@ -44,7 +44,7 @@ namespace Dimmer
         abstract public void TwoChannelSetBrightness(int led1_value, int led2_value);
     }
 
-    class GLCPD12V30W : GeneralSeries //PD12V30W("COM5", 19200, 8, 0, 1);
+    class GLCPD12V30W : RS232Series //PD12V30W("COM5", 19200, 8, 0, 1);
     {
         public GLCPD12V30W(string _PortName, int _BaudRate, int _DataBits, int _Parity, int _StopBits) : base(_PortName, _BaudRate, _DataBits, _Parity, _StopBits)
         {
@@ -101,7 +101,7 @@ namespace Dimmer
         }
     }
 
-    class GLCPD24V24W : GeneralSeries //GLCPD24V24W("COM5", 115200, 8, 0, 1);
+    class GLCPD24V24W : RS232Series //GLCPD24V24W("COM5", 115200, 8, 0, 1);
     {
         public GLCPD24V24W(string _PortName, int _BaudRate, int _DataBits, int _Parity, int _StopBits) : base(_PortName, _BaudRate, _DataBits, _Parity, _StopBits)
         {
@@ -163,4 +163,34 @@ namespace Dimmer
             serialPort.Write(buf, 0, buf.Length);
         }
     }
+
+    class GLCLFB2350 : RS232Series //GLCPD24V24W("COM5", 115200, 8, 0, 1);
+    {
+        public GLCLFB2350(string _PortName, int _BaudRate, int _DataBits, int _Parity, int _StopBits) : base(_PortName, _BaudRate, _DataBits, _Parity, _StopBits)
+        {
+        }
+
+        private string OneChannelProtocalFormat(int led_value, int ch)
+        {
+            string Temp = (87 + 48 * 2 + led_value).ToString("X");
+            string Check_Sum = Temp.Length >= 2 ? Temp.Substring(Temp.Length - 2, 2) : Temp;
+            string msg = "W" + led_value.ToString("X4") + Check_Sum + "Q";
+            //Console.WriteLine(msg);
+            return msg;
+        }
+
+        public override void OneChannelSetBrightness(int led_value, int ch)
+        {
+            string msg = OneChannelProtocalFormat(led_value, ch);
+            byte[] buf = Encoding.Default.GetBytes(msg);
+            serialPort.Write(buf, 0, buf.Length);
+        }
+
+        public override void TwoChannelSetBrightness(int led1_value, int led2_value)
+        {
+
+        }
+
+    }
+
 }
