@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenCvSharp.ML;
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
@@ -170,12 +171,27 @@ namespace Dimmer
         {
         }
 
+        private int DataCovert(int led_value)
+        {
+            string hexString = led_value.ToString("X"); // 將數值轉換為十六進制字串
+            int sum = 0;
+            foreach (char c in hexString)
+            {
+                sum += int.Parse(c.ToString(), System.Globalization.NumberStyles.HexNumber);
+            }
+            return sum;
+        }
+
         private string OneChannelProtocalFormat(int led_value, int ch)
         {
-            string Temp = (87 + 48 * 2 + led_value).ToString("X");
+            int data = DataCovert(led_value);
+            Console.WriteLine(data);
+            string Temp = (87 + 48 * 4 + data).ToString("X");
+            Console.WriteLine(Temp);
             string Check_Sum = Temp.Length >= 2 ? Temp.Substring(Temp.Length - 2, 2) : Temp;
+            Console.WriteLine(Check_Sum);
             string msg = "W" + led_value.ToString("X4") + Check_Sum + "Q";
-            //Console.WriteLine(msg);
+            Console.WriteLine(msg);
             return msg;
         }
 
