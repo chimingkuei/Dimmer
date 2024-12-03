@@ -24,11 +24,24 @@ namespace Dimmer
     {
         GLCPD12V30W, GLCPD24V24W, GLCLFB2350
     }
+    enum ChannelControl
+    {
+        OneCh, TwoCh, FourCh
+    }
 
     public class Parameter
     {
         public int LED1_val { get; set; }
         public int LED2_val { get; set; }
+        public int LED3_val { get; set; }
+        public int LED4_val { get; set; }
+        public bool Ch1_Rd_val { get; set; }
+        public bool Ch2_Rd_val { get; set; }
+        public bool Ch3_Rd_val { get; set; }
+        public bool Ch4_Rd_val { get; set; }
+        public bool OneCh_val { get; set; }
+        public bool TwoCh_val { get; set; }
+        public bool FourCh_val { get; set; }
         public bool One_Channel_val { get; set; }
         public bool Two_Channel_val { get; set; }
         public bool GLC_PD12V30W_val { get; set; }
@@ -79,14 +92,38 @@ namespace Dimmer
             return selectedModel;
         }
 
+        private ChannelControl SelectChannel()
+        {
+            if ((bool)OneCh.IsChecked)
+            {
+                selectedChannel = ChannelControl.OneCh;
+            }
+            else if ((bool)TwoCh.IsChecked)
+            {
+                selectedChannel = ChannelControl.TwoCh;
+            }
+            else if ((bool)FourCh.IsChecked)
+            {
+                selectedChannel = ChannelControl.FourCh;
+            }
+            return selectedChannel;
+        }
+
         #region Config
         private void LoadConfig()
         {
             List<Parameter> Parameter_info = Config.Load();
             LED1.Text = Parameter_info[0].LED1_val.ToString();
             LED2.Text = Parameter_info[0].LED2_val.ToString();
-            One_Channel.IsChecked = Parameter_info[0].One_Channel_val;
-            Two_Channel.IsChecked = Parameter_info[0].Two_Channel_val;
+            LED3.Text = Parameter_info[0].LED3_val.ToString();
+            LED4.Text = Parameter_info[0].LED4_val.ToString();
+            Ch1_Rd.IsChecked = Parameter_info[0].Ch1_Rd_val;
+            Ch2_Rd.IsChecked = Parameter_info[0].Ch2_Rd_val;
+            Ch3_Rd.IsChecked = Parameter_info[0].Ch3_Rd_val;
+            Ch4_Rd.IsChecked = Parameter_info[0].Ch4_Rd_val;
+            OneCh.IsChecked = Parameter_info[0].OneCh_val;
+            TwoCh.IsChecked = Parameter_info[0].TwoCh_val;
+            FourCh.IsChecked = Parameter_info[0].FourCh_val;
             GLC_PD12V30W.IsChecked = Parameter_info[0].GLC_PD12V30W_val;
             GLC_PD24V24W.IsChecked = Parameter_info[0].GLC_PD24V24W_val;
             GLC_LFB2350.IsChecked = Parameter_info[0].GLC_LFB2350_val;
@@ -103,8 +140,15 @@ namespace Dimmer
                         {
                             new Parameter() { LED1_val = Convert.ToInt32(LED1.Text),
                                               LED2_val = Convert.ToInt32(LED2.Text),
-                                              One_Channel_val= (bool)One_Channel.IsChecked,
-                                              Two_Channel_val= (bool)Two_Channel.IsChecked,
+                                              LED3_val = Convert.ToInt32(LED3.Text),
+                                              LED4_val = Convert.ToInt32(LED4.Text),
+                                              Ch1_Rd_val = (bool)Ch1_Rd.IsChecked,
+                                              Ch2_Rd_val = (bool)Ch2_Rd.IsChecked,
+                                              Ch3_Rd_val = (bool)Ch3_Rd.IsChecked,
+                                              Ch4_Rd_val = (bool)Ch4_Rd.IsChecked,
+                                              OneCh_val = (bool)OneCh.IsChecked,
+                                              TwoCh_val = (bool)TwoCh.IsChecked,
+                                              FourCh_val = (bool)FourCh.IsChecked,
                                               GLC_PD12V30W_val = (bool)GLC_PD12V30W.IsChecked,
                                               GLC_PD24V24W_val = (bool)GLC_PD24V24W.IsChecked,
                                               GLC_LFB2350_val = (bool)GLC_LFB2350.IsChecked,
@@ -132,6 +176,7 @@ namespace Dimmer
         GLCPD24V24W GLCPD24V24W;
         GLCLFB2350 GLCLFB2350;
         ProductModel selectedModel;
+        ChannelControl selectedChannel;
         #endregion
 
         #region Main Screen
@@ -182,39 +227,81 @@ namespace Dimmer
                 case nameof(Light_Up):
                     {
                         SelectModel();
-                        if ((bool)One_Channel.IsChecked)
+                        SelectChannel();
+                        switch (selectedModel)
                         {
-                            switch (selectedModel)
-                            {
-                                case ProductModel.GLCPD12V30W:
-                                    GLCPD12V30W.OneChannelSetBrightness(Convert.ToInt32(LED1.Value), 1);
-                                    break;
-
-                                case ProductModel.GLCPD24V24W:
-                                    GLCPD24V24W.OneChannelSetBrightness(Convert.ToInt32(LED1.Value), 1);
-                                    break;
-
-                                case ProductModel.GLCLFB2350:
-                                    GLCLFB2350.OneChannelSetBrightness(Convert.ToInt32(LED1.Value), 1);
-                                    break;
-                            }
-                        }
-                        else if ((bool)Two_Channel.IsChecked)
-                        {
-                            switch (selectedModel)
-                            {
-                                case ProductModel.GLCPD12V30W:
-                                    GLCPD12V30W.TwoChannelSetBrightness(Convert.ToInt32(LED1.Value), Convert.ToInt32(LED2.Value));
-                                    break;
-
-                                case ProductModel.GLCPD24V24W:
-                                    GLCPD24V24W.TwoChannelSetBrightness(Convert.ToInt32(LED1.Value), Convert.ToInt32(LED2.Value));
-                                    break;
-
-                                case ProductModel.GLCLFB2350:
-                                    GLCLFB2350.TwoChannelSetBrightness(Convert.ToInt32(LED1.Value), Convert.ToInt32(LED2.Value));
-                                    break;
-                            }
+                            case ProductModel.GLCPD12V30W:
+                                switch (selectedChannel)
+                                {
+                                    case ChannelControl.OneCh:
+                                        if ((bool)Ch1_Rd.IsChecked)
+                                        {
+                                            GLCPD12V30W.OneChannelSetBrightness(Convert.ToInt32(LED1.Value), 1);
+                                        }
+                                        else if ((bool)Ch2_Rd.IsChecked)
+                                        {
+                                            GLCPD12V30W.OneChannelSetBrightness(Convert.ToInt32(LED2.Value), 2);
+                                        }
+                                        else if ((bool)Ch3_Rd.IsChecked)
+                                        {
+                                            GLCPD12V30W.OneChannelSetBrightness(Convert.ToInt32(LED3.Value), 3);
+                                        }
+                                        else if ((bool)Ch4_Rd.IsChecked)
+                                        {
+                                            GLCPD12V30W.OneChannelSetBrightness(Convert.ToInt32(LED4.Value), 4);
+                                        }
+                                        break;
+                                    case ChannelControl.TwoCh:
+                                        GLCPD12V30W.TwoChannelSetBrightness(Convert.ToInt32(LED1.Value), Convert.ToInt32(LED2.Value));
+                                        break;
+                                    case ChannelControl.FourCh:
+                                        GLCPD12V30W.FourChannelSetBrightness(Convert.ToInt32(LED1.Value), Convert.ToInt32(LED2.Value), Convert.ToInt32(LED3.Value), Convert.ToInt32(LED4.Value));
+                                        break;
+                                }
+                                break;
+                            case ProductModel.GLCPD24V24W:
+                                switch (selectedChannel)
+                                {
+                                    case ChannelControl.OneCh:
+                                        if ((bool)Ch1_Rd.IsChecked)
+                                        {
+                                            GLCPD24V24W.OneChannelSetBrightness(Convert.ToInt32(LED1.Value), 1);
+                                        }
+                                        else if ((bool)Ch2_Rd.IsChecked)
+                                        {
+                                            GLCPD24V24W.OneChannelSetBrightness(Convert.ToInt32(LED2.Value), 2);
+                                        }
+                                        else if ((bool)Ch3_Rd.IsChecked)
+                                        {
+                                            GLCPD24V24W.OneChannelSetBrightness(Convert.ToInt32(LED3.Value), 3);
+                                        }
+                                        else if ((bool)Ch4_Rd.IsChecked)
+                                        {
+                                            GLCPD24V24W.OneChannelSetBrightness(Convert.ToInt32(LED4.Value), 4);
+                                        }
+                                        break;
+                                    case ChannelControl.TwoCh:
+                                        GLCPD24V24W.TwoChannelSetBrightness(Convert.ToInt32(LED1.Value), Convert.ToInt32(LED2.Value));
+                                        break;
+                                    case ChannelControl.FourCh:
+                                        GLCPD24V24W.FourChannelSetBrightness(Convert.ToInt32(LED1.Value), Convert.ToInt32(LED2.Value), Convert.ToInt32(LED3.Value), Convert.ToInt32(LED4.Value));
+                                        break;
+                                }
+                                break;
+                            case ProductModel.GLCLFB2350:
+                                switch (selectedChannel)
+                                {
+                                    case ChannelControl.OneCh:
+                                        GLCLFB2350.OneChannelSetBrightness(Convert.ToInt32(LED1.Value), 1);
+                                        break;
+                                    case ChannelControl.TwoCh:
+                                        MessageBox.Show("This product model only has 1 channel!", "Confirm", MessageBoxButton.OK, MessageBoxImage.Question);
+                                        break;
+                                    case ChannelControl.FourCh:
+                                        MessageBox.Show("This product model only has 1 channel!", "Confirm", MessageBoxButton.OK, MessageBoxImage.Question);
+                                        break;
+                                }
+                                break;
                         }
                         break;
                     }
