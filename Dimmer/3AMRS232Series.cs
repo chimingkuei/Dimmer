@@ -131,7 +131,7 @@ namespace Dimmer
     }
 
 
-    // 增加4CH、待測試2CH
+    // 待測試4CH
     class GLCPD24V24W : RS232Series //GLCPD24V24W("COM5", 115200, 8, 0, 1);
     {
         public GLCPD24V24W(string _PortName, int _BaudRate, int _DataBits, int _Parity, int _StopBits) : base(_PortName, _BaudRate, _DataBits, _Parity, _StopBits)
@@ -194,10 +194,45 @@ namespace Dimmer
             serialPort.Write(buf, 0, buf.Length);
         }
 
+        private string FourChannelLRC(int led1_value, int led2_value, int led3_value, int led4_value)
+        {
+            string firstTwo_Register_Value1 = led1_value.ToString("X4").Substring(0, 2);
+            string lastTwo_Register_Value1 = led1_value.ToString("X4").Substring(2, 2);
+            string firstTwo_Register_Value2 = led2_value.ToString("X4").Substring(0, 2);
+            string lastTwo_Register_Value2 = led2_value.ToString("X4").Substring(2, 2);
+            string firstTwo_Register_Value3 = led3_value.ToString("X4").Substring(0, 2);
+            string lastTwo_Register_Value3 = led3_value.ToString("X4").Substring(2, 2);
+            string firstTwo_Register_Value4 = led4_value.ToString("X4").Substring(0, 2);
+            string lastTwo_Register_Value4 = led4_value.ToString("X4").Substring(2, 2);
+            string Temp = (1 + 16 + 1 + 4 + 8 + Convert.ToInt32(firstTwo_Register_Value1, 16) 
+                                              + Convert.ToInt32(lastTwo_Register_Value1, 16) 
+                                              + Convert.ToInt32(firstTwo_Register_Value2, 16) 
+                                              + Convert.ToInt32(lastTwo_Register_Value2, 16)
+                                              + Convert.ToInt32(firstTwo_Register_Value3, 16)
+                                              + Convert.ToInt32(lastTwo_Register_Value3, 16)
+                                              + Convert.ToInt32(firstTwo_Register_Value4, 16)
+                                              + Convert.ToInt32(lastTwo_Register_Value4, 16)
+                                              ).ToString("X");
+            string Data_sum = Temp.Length >= 2 ? Temp.Substring(Temp.Length - 2, 2) : Temp;
+            string LRC = (255 - Convert.ToInt32(Data_sum, 16) + 1).ToString("X2");
+            return LRC;
+        }
+
+        private string FourChannelProtocalFormat(int led1_value, int led2_value, int led3_value, int led4_value)
+        {
+            string Header = ":";
+            string command = "01100001000408" + led1_value.ToString("X4") + led2_value.ToString("X4") + led3_value.ToString("X4") + led4_value.ToString("X4");
+            string LRC = FourChannelLRC(led1_value, led2_value, led3_value, led4_value);
+            string msg = Header + command + LRC + "\r\n";
+            //Console.WriteLine(msg);
+            return msg;
+        }
 
         public override void FourChannelSetBrightness(int led1_value, int led2_value, int led3_value, int led4_value)
         {
-
+            string msg = FourChannelProtocalFormat(led1_value, led2_value, led3_value, led4_value);
+            byte[] buf = Encoding.Default.GetBytes(msg);
+            serialPort.Write(buf, 0, buf.Length);
         }
     }
 
