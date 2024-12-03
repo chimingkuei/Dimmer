@@ -130,8 +130,8 @@ namespace Dimmer
         }
     }
 
-  
-    // 增加2CH
+
+    // 增加4CH、待測試2CH
     class GLCPD24V24W : RS232Series //GLCPD24V24W("COM5", 115200, 8, 0, 1);
     {
         public GLCPD24V24W(string _PortName, int _BaudRate, int _DataBits, int _Parity, int _StopBits) : base(_PortName, _BaudRate, _DataBits, _Parity, _StopBits)
@@ -171,7 +171,7 @@ namespace Dimmer
             string lastTwo_Register_Value1 = led1_value.ToString("X4").Substring(2, 2);
             string firstTwo_Register_Value2 = led2_value.ToString("X4").Substring(0, 2);
             string lastTwo_Register_Value2 = led2_value.ToString("X4").Substring(2, 2);
-            string Temp = (1 + 16 + 1 + 2 + 8 + Convert.ToInt32(firstTwo_Register_Value1, 16) + Convert.ToInt32(lastTwo_Register_Value1, 16) + Convert.ToInt32(firstTwo_Register_Value2, 16) + Convert.ToInt32(lastTwo_Register_Value2, 16)).ToString("X");
+            string Temp = (1 + 16 + 1 + 2 + 4 + Convert.ToInt32(firstTwo_Register_Value1, 16) + Convert.ToInt32(lastTwo_Register_Value1, 16) + Convert.ToInt32(firstTwo_Register_Value2, 16) + Convert.ToInt32(lastTwo_Register_Value2, 16)).ToString("X");
             string Data_sum = Temp.Length >= 2 ? Temp.Substring(Temp.Length - 2, 2) : Temp;
             string LRC = (255 - Convert.ToInt32(Data_sum, 16) + 1).ToString("X2");
             return LRC;
@@ -180,7 +180,7 @@ namespace Dimmer
         private string TwoChannelProtocalFormat(int led1_value, int led2_value)
         {
             string Header = ":";
-            string command = "01100001000208" + led1_value.ToString("X4") + led2_value.ToString("X4");
+            string command = "01100001000204" + led1_value.ToString("X4") + led2_value.ToString("X4");
             string LRC = TwoChannelLRC(led1_value, led2_value);
             string msg = Header + command + LRC + "\r\n";
             //Console.WriteLine(msg);
