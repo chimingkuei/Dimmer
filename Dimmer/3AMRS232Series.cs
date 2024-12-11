@@ -47,7 +47,6 @@ namespace Dimmer
         abstract public void FourChannelSetBrightness(int led1_value, int led2_value, int led3_value, int led4_value);
     }
 
-    // 待測試4CH
     class GLCPD12V30W : RS232Series //PD12V30W("COM5", 19200, 8, 0, 1);
     {
         public GLCPD12V30W(string _PortName, int _BaudRate, int _DataBits, int _Parity, int _StopBits) : base(_PortName, _BaudRate, _DataBits, _Parity, _StopBits)
@@ -129,7 +128,6 @@ namespace Dimmer
             serialPort.Write(buf, 0, buf.Length);
         }
     }
-
 
     // 待測試4CH
     class GLCPD24V24W : RS232Series //GLCPD24V24W("COM5", 115200, 8, 0, 1);
