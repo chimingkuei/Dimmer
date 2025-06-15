@@ -47,7 +47,10 @@ namespace Dimmer
         abstract public void FourChannelSetBrightness(int led1_value, int led2_value, int led3_value, int led4_value);
     }
 
-    class GLCPD12V30W : RS232Series //PD12V30W("COM5", 19200, 8, 0, 1);
+    /// <summary>
+    /// PD12V30W("COM5", 19200, 8, 0, 1);
+    /// </summary>
+    class GLCPD12V30W : RS232Series
     {
         public GLCPD12V30W(string _PortName, int _BaudRate, int _DataBits, int _Parity, int _StopBits) : base(_PortName, _BaudRate, _DataBits, _Parity, _StopBits)
         {
@@ -129,8 +132,11 @@ namespace Dimmer
         }
     }
 
-    // 待測試4CH
-    class GLCPD24V24W : RS232Series //GLCPD24V24W("COM5", 115200, 8, 0, 1);
+    /// <summary>
+    /// GLCPD24V24W("COM5", 115200, 8, 0, 1);
+    /// 待測試4CH
+    /// </summary>
+    class GLCPD24V24W : RS232Series
     {
         public GLCPD24V24W(string _PortName, int _BaudRate, int _DataBits, int _Parity, int _StopBits) : base(_PortName, _BaudRate, _DataBits, _Parity, _StopBits)
         {
@@ -234,7 +240,10 @@ namespace Dimmer
         }
     }
 
-    class GLCLFB2350 : RS232Series //GLCPD24V24W("COM5", 115200, 8, 0, 1);
+    /// <summary>
+    /// GLCPD24V24W("COM5", 115200, 8, 0, 1);
+    /// </summary>
+    class GLCLFB2350 : RS232Series 
     {
         public GLCLFB2350(string _PortName, int _BaudRate, int _DataBits, int _Parity, int _StopBits) : base(_PortName, _BaudRate, _DataBits, _Parity, _StopBits)
         {
